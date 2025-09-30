@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports - Inventory System</title>
+  <link rel="stylesheet" href="/styles/reports.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Manager Portal</h2>
+    
+    <div class="nav-section">
+      <a href="overview.html" class="nav-item">📊 Dashboard</a>
+      <a href="products.html" class="nav-item">📦 Products</a>
+      <a href="staff_management.html" class="nav-item">👥 Staff Management</a>
+      <a href="reports.html" class="nav-item active">📈 Reports</a>
+    </div>
+
+    <div class="logout">
+      <a href="../sales.html" class="nav-item">🚪 Logout</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="page-header">
+      <h1 class="page-title">Business Reports</h1>
+      <div class="date-filter">
+        <select class="filter-select" id="period-filter" onchange="updateReports()">
+          <option value="today">Today</option>
+          <option value="week" selected>This Week</option>
+          <option value="month">This Month</option>
+          <option value="quarter">This Quarter</option>
+        </select>
+        <button class="export-btn" onclick="exportAllReports()">📊 Export All</button>
+      </div>
+    </div>
+
+    <!-- Critical Alerts Section -->
+    <div class="alerts-section" id="alerts-section">
+      <!-- Alerts will be populated here -->
+    </div>
+
+    <!-- Reports Grid -->
+    <div class="reports-grid">
+      
+      <!-- Inventory Status Report -->
+      <div class="report-card">
+        <div class="report-header">
+          <h3 class="report-title">
+            <span>📦</span> Inventory Status Report
+          </h3>
+          <button class="export-btn" onclick="exportReport('inventory')">Export</button>
+        </div>
+        <div class="report-content">
+          <div class="summary-grid">
+            <div class="summary-box">
+              <div class="summary-value" id="total-products">10</div>
+              <div class="summary-label">Total Products</div>
+            </div>
+            <div class="summary-box">
+              <div class="summary-value" id="low-stock-count">3</div>
+              <div class="summary-label">Low Stock Items</div>
+            </div>
+            <div class="summary-box">
+              <div class="summary-value" id="out-of-stock">1</div>
+              <div class="summary-label">Out of Stock</div>
+            </div>
+          </div>
+          
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Current Stock</th>
+                <th>Status</th>
+                <th>Action Required</th>
+              </tr>
+            </thead>
+            <tbody id="inventory-table">
+              <!-- Will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Sales Performance Report -->
+      <div class="report-card">
+        <div class="report-header">
+          <h3 class="report-title">
+            <span>💰</span> Sales Performance Report
+          </h3>
+          <button class="export-btn" onclick="exportReport('sales')">Export</button>
+        </div>
+        <div class="report-content">
+          <div class="summary-grid">
+            <div class="summary-box">
+              <div class="summary-value" id="total-sales">₦45,600</div>
+              <div class="summary-label">Total Sales</div>
+            </div>
+            <div class="summary-box">
+              <div class="summary-value" id="total-transactions">28</div>
+              <div class="summary-label">Transactions</div>
+            </div>
+            <div class="summary-box">
+              <div class="summary-value" id="avg-transaction">₦1,629</div>
+              <div class="summary-label">Avg. Transaction</div>
+            </div>
+          </div>
+          
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Units Sold</th>
+                <th>Revenue</th>
+                <th>Performance</th>
+              </tr>
+            </thead>
+            <tbody id="sales-table">
+              <!-- Will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Staff Performance Report -->
+      <div class="report-card">
+        <div class="report-header">
+          <h3 class="report-title">
+            <span>👥</span> Staff Performance Report
+          </h3>
+          <button class="export-btn" onclick="exportReport('staff')">Export</button>
+        </div>
+        <div class="report-content">
+          <div class="summary-grid">
+            <div class="summary-box">
+              <div class="summary-value" id="active-cashiers">4</div>
+              <div class="summary-label">Active Cashiers</div>
+            </div>
+            <div class="summary-box">
+              <div class="summary-value" id="top-performer">John D.</div>
+              <div class="summary-label">Top Performer</div>
+            </div>
+          </div>
+          
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>Cashier</th>
+                <th>Transactions</th>
+                <th>Total Sales</th>
+                <th>Performance</th>
+              </tr>
+            </thead>
+            <tbody id="staff-table">
+              <!-- Will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Reorder Recommendations -->
+      <div class="report-card">
+        <div class="report-header">
+          <h3 class="report-title">
+            <span>🔄</span> Reorder Recommendations
+          </h3>
+          <button class="export-btn" onclick="exportReport('reorder')">Export</button>
+        </div>
+        <div class="report-content">
+          <div class="summary-grid">
+            <div class="summary-box">
+              <div class="summary-value" id="items-to-reorder">5</div>
+              <div class="summary-label">Items to Reorder</div>
+            </div>
+            <div class="summary-box">
+              <div class="summary-value" id="estimated-cost">₦25,400</div>
+              <div class="summary-label">Est. Reorder Cost</div>
+            </div>
+          </div>
+          
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Current Stock</th>
+                <th>Recommended Order</th>
+                <th>Priority</th>
+              </tr>
+            </thead>
+            <tbody id="reorder-table">
+              <!-- Will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Daily Sales Trend -->
+      <div class="report-card">
+        <div class="report-header">
+          <h3 class="report-title">
+            <span>📈</span> Sales Trend Analysis
+          </h3>
+          <button class="export-btn" onclick="exportReport('trends')">Export</button>
+        </div>
+        <div class="report-content">
+          <div class="summary-grid">
+            <div class="summary-box">
+              <div class="summary-value" id="daily-avg">₦6,514</div>
+              <div class="summary-label">Daily Average</div>
+            </div>
+            <div class="summary-box">
+              <div class="summary-value" id="growth-rate">+8.5%</div>
+              <div class="summary-label">Growth Rate</div>
+            </div>
+          </div>
+          
+          <!-- Chart placeholder -->
+          <div class="chart-container">
+            Sales trend chart would display here
+            <br><small>(In production: Line chart showing daily sales)</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Financial Summary -->
+      <div class="report-card">
+        <div class="report-header">
+          <h3 class="report-title">
+            <span>💳</span> Financial Summary
+          </h3>
+          <button class="export-btn" onclick="exportReport('financial')">Export</button>
+        </div>
+        <div class="report-content">
+          <div class="summary-grid">
+            <div class="summary-box">
+              <div class="summary-value">₦45,600</div>
+              <div class="summary-label">Gross Revenue</div>
+            </div>
+            <div class="summary-box">
+              <div class="summary-value">₦2,280</div>
+              <div class="summary-label">Discounts Given</div>
+            </div>
+            <div class="summary-box">
+              <div class="summary-value">₦43,320</div>
+              <div class="summary-label">Net Revenue</div>
+            </div>
+          </div>
+          
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Percentage</th>
+                <th>Change</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="product-name">Food Items</td>
+                <td class="amount">₦28,600</td>
+                <td>66%</td>
+                <td class="status-good">+5.2%</td>
+              </tr>
+              <tr>
+                <td class="product-name">Beverages</td>
+                <td class="amount">₦12,200</td>
+                <td>28%</td>
+                <td class="status-good">+3.1%</td>
+              </tr>
+              <tr>
+                <td class="product-name">Household</td>
+                <td class="amount">₦2,520</td>
+                <td>6%</td>
+                <td class="status-warning">-1.5%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/reports.js"></script>
+
+</body>
+</html>

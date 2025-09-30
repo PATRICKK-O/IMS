@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products Management - Inventory System</title>
+    <link rel="stylesheet" href="/styles/products.css">
+  </head>
+
+  <body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Manager Portal</h2>
+      
+      <div class="nav-section">
+        <a href="overview.html" class="nav-item">📊 Dashboard</a>
+        <a href="products.html" class="nav-item active">📦 Products</a>
+        <a href="staff_management.html" class="nav-item">👥 Staff Management</a>
+        <a href="reports.html" class="nav-item">📈 Reports</a>
+      </div>
+
+      <div class="logout">
+        <a href="../sales.html" class="nav-item">🚪 Logout</a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Products & Stock Management</h1>
+          <p class="page-subtitle">Manage your inventory and product information</p>
+        </div>
+      </div>
+
+      <!-- Action Bar -->
+      <div class="action-bar">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" placeholder="Search products...">
+        </div>
+        <button class="add-product-btn">
+          <span>+</span> Add Product
+        </button>
+      </div>
+
+      <!-- Stats Overview -->
+      <div class="stats-overview">
+        <div class="stat-card total">
+          <div class="stat-icon">📦</div>
+          <div class="stat-info">
+            <h3>247</h3>
+            <p>Total Products</p>
+          </div>
+        </div>
+        <div class="stat-card low-stock">
+          <div class="stat-icon">⚠️</div>
+          <div class="stat-info">
+            <h3>12</h3>
+            <p>Low Stock Items</p>
+          </div>
+        </div>
+        <div class="stat-card out-stock">
+          <div class="stat-icon">📋</div>
+          <div class="stat-info">
+            <h3>3</h3>
+            <p>Out of Stock</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products Table -->
+      <div class="products-container">
+        <div class="table-header">
+          <h3 class="table-title">All Products</h3>
+          <span class="products-count">247 items</span>
+        </div>
+        
+        <table class="products-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Product</th>
+              <th>Stock Level</th>
+              <th>Unit Price</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="product-id">#001</td>
+              <td>
+                <div class="product-name">
+                  <div class="product-icon">🥤</div>
+                  Coca Cola
+                </div>
+              </td>
+              <td><span class="stock-level stock-normal">195</span></td>
+              <td class="price">₦200.00</td>
+              <td>
+                <div class="action-buttons">
+                  <button class="btn btn-edit">Edit</button>
+                  <button class="btn btn-stock">Stock</button>
+                  <button class="btn btn-remove">Remove</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="product-id">#002</td>
+              <td>
+                <div class="product-name">
+                  <div class="product-icon">🥤</div>
+                  Pepsi Cola
+                </div>
+              </td>
+              <td><span class="stock-level stock-normal">80</span></td>
+              <td class="price">₦180.00</td>
+              <td>
+                <div class="action-buttons">
+                  <button class="btn btn-edit">Edit</button>
+                  <button class="btn btn-stock">Stock</button>
+                  <button class="btn btn-remove">Remove</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="product-id">#003</td>
+              <td>
+                <div class="product-name">
+                  <div class="product-icon">🍊</div>
+                  Fanta Orange
+                </div>
+              </td>
+              <td><span class="stock-level stock-normal">60</span></td>
+              <td class="price">₦190.00</td>
+              <td>
+                <div class="action-buttons">
+                  <button class="btn btn-edit">Edit</button>
+                  <button class="btn btn-stock">Stock</button>
+                  <button class="btn btn-remove">Remove</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="product-id">#004</td>
+              <td>
+                <div class="product-name">
+                  <div class="product-icon">🍞</div>
+                  Fresh Bread
+                </div>
+              </td>
+              <td><span class="stock-level stock-low">15</span></td>
+              <td class="price">₦150.00</td>
+              <td>
+                <div class="action-buttons">
+                  <button class="btn btn-edit">Edit</button>
+                  <button class="btn btn-stock">Stock</button>
+                  <button class="btn btn-remove">Remove</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="product-id">#005</td>
+              <td>
+                <div class="product-name">
+                  <div class="product-icon">🧴</div>
+                  Detergent
+                </div>
+              </td>
+              <td><span class="stock-level stock-out">0</span></td>
+              <td class="price">₦350.00</td>
+              <td>
+                <div class="action-buttons">
+                  <button class="btn btn-edit">Edit</button>
+                  <button class="btn btn-stock">Stock</button>
+                  <button class="btn btn-remove">Remove</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </body>
+</html>

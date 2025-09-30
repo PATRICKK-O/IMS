@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales - Inventory System</title>
+    <link rel="stylesheet" href="styles/sales.css">
+  </head>
+
+  <body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Staff Inventory</h2>
+      
+      <div class="nav-section">
+        <a href="#" class="nav-item">📊 Dashboard</a>
+        <a href="#" class="nav-item active">💳 Sales</a>
+        <a href="#" class="nav-item">📦 Stock</a>
+        <a href="#" class="nav-item">📈 Reports</a>
+      </div>
+
+      <div class="logout">
+        <a href="manager/overview.html" class="nav-item">🚪 Logout</a>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="main">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Sales Operation</h1>
+          <p class="page-subtitle">Process customer transactions and manage multiple sales</p>
+        </div>
+        <div class="header-controls">
+          <button class="new-customer-btn" id="new-customer-btn" onclick="addNewCustomer()">
+            <span>+</span> New Customer
+          </button>
+        </div>
+      </div>
+
+      <!-- Customer Tabs -->
+      <div class="customer-tabs" id="customer-tabs">
+        <!-- Tabs will be added here dynamically -->
+      </div>
+
+      <!-- Sales Container -->
+      <div class="sales-container">
+        <!-- Customer content will be added here dynamically -->
+      </div>
+    </div>
+
+    <script src="js/sales.js"></script>
+
+  </body>
+</html>

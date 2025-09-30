@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Dashboard - Inventory System</title>
+    <link rel="stylesheet" href="/styles/overview.css">
+  </head>
+
+  <body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Manager Portal</h2>
+      
+      <div class="nav-section">
+        <a href="overview.html" class="nav-item active">📊 Dashboard</a>
+        <a href="products.html" class="nav-item">📦 Products</a>
+        <a href="staff_management.html" class="nav-item">👥 Staff Management</a>
+        <a href="reports.html" class="nav-item">📈 Reports</a>
+      </div>
+
+      <div class="logout">
+        <a href="../sales.html" class="nav-item">🚪 Logout</a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+      <div class="page-header">
+        <h1 class="page-title">Dashboard Overview</h1>
+        <div class="date-time">
+          <div class="current-date">Sunday, September 21, 2025</div>
+          <div>Last updated: 2:45 PM</div>
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card today">
+          <div class="stat-header">
+            <div class="stat-icon">💰</div>
+          </div>
+          <div class="stat-value">₦52,300</div>
+          <div class="stat-label">Total Revenue (Today)</div>
+          <div class="stat-trend trend-positive">
+            ↗ +12% from yesterday
+          </div>
+        </div>
+
+        <div class="stat-card week">
+          <div class="stat-header">
+            <div class="stat-icon">📈</div>
+          </div>
+          <div class="stat-value">₦340,000</div>
+          <div class="stat-label">This Week</div>
+          <div class="stat-trend trend-positive">
+            ↗ +8% from last week
+          </div>
+        </div>
+
+        <div class="stat-card month">
+          <div class="stat-header">
+            <div class="stat-icon">🏆</div>
+          </div>
+          <div class="stat-value">₦1,200,000</div>
+          <div class="stat-label">This Month</div>
+          <div class="stat-trend trend-neutral">
+            → Same as last month
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Tables -->
+      <div class="data-section">
+        <!-- Recent Sales -->
+        <div class="data-card">
+          <div class="data-header">
+            <h3 class="data-title">Recent Sales</h3>
+            <a href="#" class="view-all">View All</a>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Cashier</th>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="cashier-name">John Doe</td>
+                <td class="product-name">Coca Cola</td>
+                <td><span class="quantity-badge">5</span></td>
+                <td class="amount">₦1,000</td>
+                <td class="date-text">Today, 2:30 PM</td>
+              </tr>
+              <tr>
+                <td class="cashier-name">Mary Johnson</td>
+                <td class="product-name">Fresh Bread</td>
+                <td><span class="quantity-badge">3</span></td>
+                <td class="amount">₦450</td>
+                <td class="date-text">Today, 1:15 PM</td>
+              </tr>
+              <tr>
+                <td class="cashier-name">John Doe</td>
+                <td class="product-name">Mineral Water</td>
+                <td><span class="quantity-badge">12</span></td>
+                <td class="amount">₦1,800</td>
+                <td class="date-text">Today, 11:45 AM</td>
+              </tr>
+              <tr>
+                <td class="cashier-name">Sarah Wilson</td>
+                <td class="product-name">Biscuits</td>
+                <td><span class="quantity-badge">8</span></td>
+                <td class="amount">₦2,400</td>
+                <td class="date-text">Today, 10:20 AM</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Stock Updates -->
+        <div class="data-card">
+          <div class="data-header">
+            <h3 class="data-title">Stock Updates</h3>
+            <a href="products.html" class="view-all">Manage Stock</a>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Previous</th>
+                <th>Sold</th>
+                <th>Current</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="product-name">Coca Cola</td>
+                <td class="stock-normal">200</td>
+                <td><span class="quantity-badge">5</span></td>
+                <td class="stock-normal">195</td>
+              </tr>
+              <tr>
+                <td class="product-name">Fresh Bread</td>
+                <td class="stock-normal">50</td>
+                <td><span class="quantity-badge">3</span></td>
+                <td class="stock-normal">47</td>
+              </tr>
+              <tr>
+                <td class="product-name">Mineral Water</td>
+                <td class="stock-normal">100</td>
+                <td><span class="quantity-badge">12</span></td>
+                <td class="stock-normal">88</td>
+              </tr>
+              <tr>
+                <td class="product-name">Detergent</td>
+                <td class="stock-low">25</td>
+                <td><span class="quantity-badge">15</span></td>
+                <td class="stock-low">10</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

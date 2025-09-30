@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Management - Inventory System</title>
+    <link rel="stylesheet" href="/styles/staff_management.css">
+  </head>
+
+  <body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Manager Portal</h2>
+      
+      <div class="nav-section">
+        <a href="overview.html" class="nav-item">📊 Dashboard</a>
+        <a href="products.html" class="nav-item">📦 Products</a>
+        <a href="staff_management.html" class="nav-item active">👥 Staff Management</a>
+        <a href="reports.html" class="nav-item">📈 Reports</a>
+      </div>
+
+      <div class="logout">
+        <a href="../sales.html" class="nav-item">🚪 Logout</a>
+      </div>
+    </div>
+      
+    <!-- Main Content -->
+    <div class="main">
+      <div class="page-header">
+        <h1 class="page-title">Staff Management</h1>
+        <div class="header-actions">
+          <button class="btn btn-primary" onclick="openAddStaffModal()">
+            <span>+</span> Add New Staff
+          </button>
+          <button class="btn btn-secondary" onclick="exportStaffData()">
+            <span>📊</span> Export Data
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card total">
+          <div class="stat-header">
+            <div class="stat-icon">👥</div>
+          </div>
+          <div class="stat-value" id="total-staff">12</div>
+          <div class="stat-label">Total Staff</div>
+        </div>
+
+        <div class="stat-card active">
+          <div class="stat-header">
+            <div class="stat-icon">✅</div>
+          </div>
+          <div class="stat-value" id="active-staff">9</div>
+          <div class="stat-label">Active Staff</div>
+        </div>
+
+        <div class="stat-card pending">
+          <div class="stat-header">
+            <div class="stat-icon">⏳</div>
+          </div>
+          <div class="stat-value" id="pending-staff">2</div>
+          <div class="stat-label">Pending Approval</div>
+        </div>
+
+        <div class="stat-card inactive">
+          <div class="stat-header">
+            <div class="stat-icon">❌</div>
+          </div>
+          <div class="stat-value" id="inactive-staff">1</div>
+          <div class="stat-label">Inactive Staff</div>
+        </div>
+      </div>
+
+      <!-- Main Content Grid -->
+      <div class="content-grid">
+        <!-- Staff Table -->
+        <div class="staff-table-card">
+          <div class="table-header">
+            <h3 class="table-title">All Staff Members</h3>
+            <input type="text" class="search-box" placeholder="Search staff..." id="staff-search" oninput="searchStaff()">
+          </div>
+          <table class="staff-table">
+            <thead>
+              <tr>
+                <th>Staff Member</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Joined</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="staff-table-body">
+              <!-- Staff data will be populated here -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pending Approval -->
+        <div class="pending-card">
+          <div class="pending-header">
+            <h3 class="pending-title">
+              <span>⏳</span> Pending Approval
+            </h3>
+          </div>
+          <div class="pending-list" id="pending-list">
+            <!-- Pending staff will be populated here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Staff Modal -->
+    <div id="addStaffModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Add New Staff Member</h3>
+          <span class="close" onclick="closeModal('addStaffModal')">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form id="addStaffForm">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-input" name="fullName" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-input" name="email" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" class="form-input" name="phone" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Role</label>
+              <select class="form-select" name="role" required>
+                <option value="">Select Role</option>
+                <option value="cashier">Cashier</option>
+                <option value="warehouse">Warehouse Staff</option>
+                <option value="manager">Manager</option>
+                <option value="admin">Administrator</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Department</label>
+              <select class="form-select" name="department">
+                <option value="">Select Department</option>
+                <option value="sales">Sales</option>
+                <option value="inventory">Inventory</option>
+                <option value="management">Management</option>
+                <option value="admin">Administration</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="closeModal('addStaffModal')">Cancel</button>
+          <button class="btn btn-primary" onclick="addNewStaff()">Add Staff</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Staff Details Modal -->
+    <div id="staffDetailsModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Staff Details</h3>
+          <span class="close" onclick="closeModal('staffDetailsModal')">&times;</span>
+        </div>
+        <div class="modal-body" id="staff-details-content">
+          <!-- Staff details will be populated here -->
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="closeModal('staffDetailsModal')">Close</button>
+          <button class="btn btn-primary" onclick="editStaff()">Edit Staff</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/staff_management.js"></script>
+
+  </body>
+</html>
