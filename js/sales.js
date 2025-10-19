@@ -19,6 +19,44 @@ let customerCounter = 0;
 let rowCounters = {};
 const MAX_CUSTOMERS = 5;
 
+// Function to get next available customer number (1-5)
+function getNextCustomerNumber() {
+  // Create array of existing customer numbers
+  const existingNumbers = customers.map(c => c.customerNumber).filter(n => n);
+  
+  // Find first available number from 1 to MAX_CUSTOMERS
+  for (let i = 1; i <= MAX_CUSTOMERS; i++) {
+    if (!existingNumbers.includes(i)) {
+      return i;
+    }
+  }
+  
+  // Fallback (shouldn't happen if MAX_CUSTOMERS logic works)
+  return MAX_CUSTOMERS + 1;
+}
+
+// Function to check if customer has items in cart
+function customerHasItems(customerId) {
+  const customer = customers.find(c => c.id === customerId);
+  if (!customer) return false;
+  
+  // Check if customer has saved items
+  if (customer.savedItems && customer.savedItems.length > 0) {
+    return true;
+  }
+  
+  // Check if there are rows with selected products
+  const rows = document.querySelectorAll(`#tbody-${customerId} tr`);
+  for (let row of rows) {
+    const productSelect = row.querySelector('select');
+    if (productSelect && productSelect.value) {
+      return true;
+    }
+  }
+  
+  return false;
+}
+
 // Save customers to localStorage for persistence
 function saveCustomersToStorage() {
   const customerData = {
@@ -31,6 +69,7 @@ function saveCustomersToStorage() {
 }
 
 // Load customers from localStorage 
+
 function loadCustomersFromStorage() {
   const stored = localStorage.getItem('customerSessions');
   if (stored) {
@@ -61,6 +100,8 @@ function loadCustomersFromStorage() {
   return false;
 }
 
+
+
 // Initialize with customer restoration or new customer
 window.onload = function() {
   if (!loadCustomersFromStorage()) {
@@ -75,12 +116,14 @@ function addNewCustomer() {
     return;
   }
 
-  customerCounter++;
-  const customerId = `customer-${customerCounter}`;
+  // Get next available customer number (sequential 1-5)
+  const customerNumber = getNextCustomerNumber();
+  const customerId = `customer-${customerNumber}`;
   
   const customer = {
     id: customerId,
-    name: `Customer ${customerCounter}`,
+    name: `Customer ${customerNumber}`,
+    customerNumber: customerNumber,
     items: [],
     subtotal: 0,
     discount: { type: 'none', amount: 0, percentage: 0 },
@@ -110,7 +153,7 @@ function createCustomerTab(customer) {
   tab.innerHTML = `
     <span class="tab-name">${customer.name}</span>
     <span class="item-count" id="count-${customer.id}">0</span>
-    ${customers.length > 1 ? `<button class="close-tab" onclick="closeCustomer('${customer.id}', event)">×</button>` : ''}
+    ${customers.length > 1 ? `<button class="close-tab" id="close-${customer.id}" onclick="closeCustomer('${customer.id}', event)">×</button>` : ''}
   `;
   
   tabsContainer.appendChild(tab);
@@ -248,15 +291,14 @@ function switchToCustomer(customerId) {
   saveCustomersToStorage();
 }
 
-// Close customer
+// Close customer - UPDATED WITH PROTECTION
 function closeCustomer(customerId, event) {
   event.stopPropagation();
   
-  const customer = customers.find(c => c.id === customerId);
-  if (customer && customer.items && customer.items.length > 0) {
-    if (!confirm(`Customer ${customer.name} has items in their cart. Are you sure you want to close this tab?`)) {
-      return;
-    }
+  // Check if customer has items in cart
+  if (customerHasItems(customerId)) {
+    alert('Cannot close this tab. Customer has items in their cart.\n\nPlease complete the transaction or remove all items first.');
+    return;
   }
 
   // Remove from customers array
@@ -296,7 +338,7 @@ function updateCustomerName(customerId, name) {
   const customer = customers.find(c => c.id === customerId);
   if (customer) {
     customer.customName = name;
-    const displayName = name || `Customer ${customerId.split('-')[1]}`;
+    const displayName = name || `Customer ${customer.customerNumber}`;
     customer.name = displayName;
     
     const tabName = document.querySelector(`#tab-${customerId} .tab-name`);
@@ -729,7 +771,8 @@ window.addEventListener('pageshow', function(event) {
       
       // Show success message
       setTimeout(() => {
-        alert(`Receipt printed successfully for ${transactionData.customerName || 'Customer'}!\n\nCustomer ${customerId.split('-')[1]} is ready for the next transaction.`);
+        const customerNumber = customerId ? customerId.split('-')[1] : '';
+        alert(`Receipt printed successfully for ${transactionData.customerName || 'Customer'}!\n\nCustomer ${customerNumber} is ready for the next transaction.`);
       }, 500);
       
     } catch (error) {

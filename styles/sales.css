@@ -202,6 +202,12 @@ body {
   background: #dc2626;
 }
 
+.close-tab:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 /* Sales form */
 .sales-container {
   background: white;
